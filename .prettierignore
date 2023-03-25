@@ -1,0 +1,13 @@
+# Ignore artifacts:
+node_modules
+build
+coverage
+src/api/*
+src/assets/*
+package-lock.json
+package.json
+
+selection.json
+style.css
+# Ignore all HTML files:
+*.html
