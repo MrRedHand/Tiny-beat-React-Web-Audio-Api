@@ -1,1 +1,6 @@
 @import "reset";
+@import "variables";
+
+html, body {
+  background-color: $main-bg-color;
+}
