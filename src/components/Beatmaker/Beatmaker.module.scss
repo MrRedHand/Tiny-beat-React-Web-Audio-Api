@@ -1,0 +1,19 @@
+.beatmaker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+
+  &_row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+  }
+
+  &_previewButton {
+    width: 60px;
+    display: flex;
+    align-items: center;
+  }
+}

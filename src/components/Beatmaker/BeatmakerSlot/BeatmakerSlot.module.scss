@@ -1,0 +1,50 @@
+@import "../src/styles/variables";
+
+.beatSlot {
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    display: block;
+  }
+
+  input[type="checkbox"] + label &_mark {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-color: $empty-slot;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all ease-in-out 0.10s;
+  }
+
+  &.active input[type="checkbox"] + label &_mark{
+    background-color: #454969;
+  }
+
+  input[type="checkbox"]:checked + label &_mark {
+    &.bass {
+      background-color: $bass-fill;
+    }
+    &.snares {
+      background-color: $snares-fill;
+    }
+  }
+
+  &.active input[type="checkbox"]:checked + label &_mark {
+    &.bass {
+      background-color: $bass-fill-active;
+      transform: scale(1.2);
+      box-shadow: 0 0 12px #FF8E4F;
+    }
+    &.snares {
+      background-color: $snares-fill;
+    }
+  }
+}
