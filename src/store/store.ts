@@ -1,9 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
-const store = makeAutoObservable({
+export interface IStore {
+  slotsCount: number;
+  playbackSpeed: number;
+  activeSlots: [];
+}
+
+export const store: IStore = makeAutoObservable({
   slotsCount: 0,
   playbackSpeed: 1,
-  activeSlots: [],
+  activeSlots: []
 });
-
-export default store;
