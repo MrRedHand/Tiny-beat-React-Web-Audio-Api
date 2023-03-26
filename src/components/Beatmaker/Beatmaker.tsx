@@ -9,7 +9,6 @@ import { useStore } from '../../store/useStore';
 
 const Beatmaker = observer(function Beatmaker() {
   const store = useStore();
-  const [playActive, setPlayActive] = useState<boolean>(true);
   const [tick, setTick] = useState<number>(0);
   const audioBass = useMemo(() => new Audio(bassUrl), [bassUrl]);
   const audioHats = useMemo(() => new Audio(hatsUrl), [hatsUrl]);
@@ -45,7 +44,7 @@ const Beatmaker = observer(function Beatmaker() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (playActive) {
+      if (store.playActive) {
         setTick(prevTime => (tick < slotsCount ? prevTime + 1 : 0));
       } else {
         setTick(-1);
@@ -54,7 +53,7 @@ const Beatmaker = observer(function Beatmaker() {
     return () => {
       window.clearInterval(timer);
     };
-  }, [tick, playActive]);
+  }, [tick, store.playActive]);
 
   const renderBass = useMemo(
     () =>
@@ -100,7 +99,7 @@ const Beatmaker = observer(function Beatmaker() {
 
   return (
     <div className={styles.beatmaker}>
-      <button onClick={() => setPlayActive(!playActive)}>{playActive ? 'Stop' : 'Play'}</button>
+      <button onClick={() => store.togglePlayActive()}>{store.playActive ? 'Stop' : 'Play'}</button>
       <div className={styles.beatmaker_row}>
         <div className={styles.beatmaker_previewButton} onClick={() => playBass()}>
           Bass
