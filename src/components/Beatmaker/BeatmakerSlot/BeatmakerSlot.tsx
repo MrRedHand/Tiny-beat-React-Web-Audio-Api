@@ -22,6 +22,10 @@ const BeatmakerSlot: FC<IBeatmakerSlot> = observer(function BeatmakerSlot({
     }
   }, [play, checked]);
 
+  useEffect(() => {
+    console.log('child');
+  }, []);
+
   return (
     <div className={`${styles.beatSlot} ${play ? styles.active : ''}`}>
       <input type='checkbox' id={slotId} checked={checked} onChange={handleSlotChecked} />
