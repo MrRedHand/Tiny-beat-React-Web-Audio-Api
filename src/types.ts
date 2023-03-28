@@ -1,8 +1,8 @@
+import { TSampleType } from './components/Beatmaker/types';
+
 export interface IBeatmakerSlot {
-  beatType: TBeatTypes;
+  beatType: TSampleType;
   play?: boolean;
   soundCallback: () => void;
   index: number;
 }
-
-export type TBeatTypes = 'bass' | 'snares' | 'hat' | 'string';

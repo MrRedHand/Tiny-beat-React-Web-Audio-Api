@@ -9,7 +9,6 @@
         "plugin:import/typescript",
         "plugin:prettier/recommended",
         "plugin:react/recommended",
-        "plugin:mobx/recommended",
         "eslint:recommended"
     ],
     "overrides": [

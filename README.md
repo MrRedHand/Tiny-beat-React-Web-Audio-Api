@@ -12,4 +12,5 @@ Here is some text
 - Sass with modules
 - uuid
 - web audio api
+- Vite
 

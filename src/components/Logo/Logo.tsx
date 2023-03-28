@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './Logo.module.scss';
+import logoUrl from '../../images/Logo.svg';
 
 function Logo() {
   return (
     <div className={styles.logo}>
-      <h1>TinyBeats maker!</h1>
+      <img src={logoUrl} />
     </div>
   );
 }
