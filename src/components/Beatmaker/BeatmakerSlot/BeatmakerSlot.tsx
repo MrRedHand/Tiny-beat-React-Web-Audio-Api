@@ -7,7 +7,8 @@ import { IBeatmakerSlot } from '../../../types';
 const BeatmakerSlot: FC<IBeatmakerSlot> = observer(function BeatmakerSlot({
   beatType,
   play = false,
-  soundCallback
+  soundCallback,
+  audioBuffer
 }) {
   const [checked, setChecked] = useState<boolean>(false);
   const slotId = uuidv4();
@@ -18,13 +19,9 @@ const BeatmakerSlot: FC<IBeatmakerSlot> = observer(function BeatmakerSlot({
 
   useEffect(() => {
     if (play && checked) {
-      soundCallback();
+      soundCallback(audioBuffer);
     }
   }, [play, checked]);
-
-  useEffect(() => {
-    console.log('child');
-  }, []);
 
   return (
     <div className={`${styles.beatSlot} ${play ? styles.active : ''}`}>
