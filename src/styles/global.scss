@@ -2,8 +2,9 @@
 @import "variables";
 
 html, body {
+  font-family: "Roboto Thin", Arial;
   background-color: $main-bg-color;
-  color: #fff;
+  color: $base-font-color;
   min-width: 100%;
   min-height: 100%;
 }

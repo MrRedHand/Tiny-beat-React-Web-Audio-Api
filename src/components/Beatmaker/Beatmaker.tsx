@@ -7,11 +7,12 @@ import samplesCollection from './constants';
 import Loader from '../Loader/Loader';
 import setSamplesToState from './utils/utils';
 import { ISamplesState } from './types';
+import { PlayButton } from '../PlayButton/PlayButton';
 
 const Beatmaker = observer(function Beatmaker() {
+  const [playActive, setPlayActive] = useState<boolean>(false);
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [samples, setSamples] = useState<ISamplesState[]>([]);
-  const store = useStore();
   const slotsCount = 12;
   const tickSpeed = 150;
   const [tick, setTick] = useState<number>(0);
@@ -31,21 +32,20 @@ const Beatmaker = observer(function Beatmaker() {
   }, [audioContext]);
 
   //
-  const playSound = useCallback(
-    (audioBuffer: AudioBuffer) => {
-      if (audioContext) {
-        const sampleSource = audioContext.createBufferSource();
-        sampleSource.buffer = audioBuffer;
-        sampleSource.connect(audioContext.destination);
-        sampleSource.start();
-      }
-    },
-    [audioContext]
-  );
+  const playSound = useCallback((audioBuffer: AudioBuffer) => {
+    const newAudioContext = new AudioContext();
+    const sampleSource = newAudioContext.createBufferSource();
+    sampleSource.buffer = audioBuffer;
+    sampleSource.connect(newAudioContext.destination);
+    sampleSource.onended = () => {
+      newAudioContext.close();
+    };
+    sampleSource.start();
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (store.playActive) {
+      if (playActive) {
         setTick(prevTime => (tick < slotsCount - 1 ? prevTime + 1 : 0));
       } else {
         setTick(-1);
@@ -54,12 +54,12 @@ const Beatmaker = observer(function Beatmaker() {
     return () => {
       window.clearInterval(timer);
     };
-  }, [tick, store.playActive]);
+  }, [tick, playActive]);
 
-  const renderSampleRow = (sample: ISamplesState) => {
+  const renderSampleRow = (sample: ISamplesState, i: number) => {
     return [...Array(slotsCount)].map((e, index) => (
       <BeatmakerSlot
-        key={index}
+        key={index.toString() + i.toString()}
         beatType={sample.sampleData.category}
         audioBuffer={sample.bufferData}
         soundCallback={playSound}
@@ -75,19 +75,23 @@ const Beatmaker = observer(function Beatmaker() {
         <Loader />
       ) : (
         <>
-          <button onClick={() => store.togglePlayActive()}>
-            {store.playActive ? 'Stop' : 'Play'}
-          </button>
-          {samples.map(sample => {
+          {samples.map((sample, index) => {
             return (
-              <div className={styles.beatmaker_row}>
+              <div className={styles.beatmaker_row} key={index}>
                 <div className={styles.beatmaker_previewButton} onClick={() => {}} />
                 <div style={{ width: '100px' }}>{sample.sampleData.label}</div>
                 {/* <BeatSelect /> */}
-                {renderSampleRow(sample)}
+                {renderSampleRow(sample, index)}
               </div>
             );
           })}
+          <PlayButton
+            title={playActive ? 'Stop' : 'Play'}
+            type={playActive ? 'stop' : 'play'}
+            onClick={() => {
+              setPlayActive(!playActive);
+            }}
+          />
         </>
       )}
     </div>

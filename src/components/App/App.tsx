@@ -10,7 +10,7 @@ function App() {
     <MainLayout>
       <Logo />
       <Beatmaker />
-      <VolumeController />
+      {/* <VolumeController /> */}
     </MainLayout>
   );
 }

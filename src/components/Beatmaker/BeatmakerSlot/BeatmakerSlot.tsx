@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { observer } from 'mobx-react-lite';
 import styles from './BeatmakerSlot.module.scss';
@@ -11,7 +11,7 @@ const BeatmakerSlot: FC<IBeatmakerSlot> = observer(function BeatmakerSlot({
   audioBuffer
 }) {
   const [checked, setChecked] = useState<boolean>(false);
-  const slotId = uuidv4();
+  const slotId = useMemo(() => uuidv4(), []);
 
   function handleSlotChecked() {
     setChecked(!checked);
