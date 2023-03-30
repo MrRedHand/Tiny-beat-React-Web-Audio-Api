@@ -1,7 +1,7 @@
 # tinyBeats
 
 Tiny beatmaker to tryout Web Audio Api
-## [DEMO](https://mrredhand.github.io/)
+## [DEMO](https://mrredhand.github.io/Tiny-beat-React-Web-Audio-Api/)
 
 ## Stack
 
